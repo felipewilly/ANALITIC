@@ -3,25 +3,33 @@ from back.dados import *
 
 '''
 Programa principal, com interação ao ususario via terminal.
+Ordem de processo: 1° dados sofa score, 2° dados extraidos
 '''
-
 titulo('Programa Analitc') 
+#Menu principal
 while True:
     menu()
-    esc = input('Opção: ')
-    if esc == '1':
-        url = input(str('URL: '))
-        time = input(str('Time analize [A] ou [B]: ')) #Escolha do usuario que vai mudar la no scrapy
-        abre_l(url, time)
-        chamda_scrapi()
-
-    if esc == '2': #Escolha do usuario que vai receber os dados pra retirada da media
-       povo  = int(input('Voto povo: ', ))
-       robo = int(input('Robo Sofa: '))
-       resultado = adiciona(povo, robo)
-
-    if esc == '3':
-        print(retorno_url)
-
-    if esc == '4':
+    esc = int(input('Opição: '))
+    if esc == 1:
+        adiciona()#dados robo e povo4
+    if esc == 2: #Escolha do usuario que vai receber os dados pra retirada da media
+        pass
+    if esc == 3:
+        teste_funcional()
+    if esc == 4:
+        break
+#Criando submenu
+while True:
+    submenu()
+    esc = int(input('Opição: '))
+    linha()
+    if esc == 1:
+        adiciona()
+    if esc == 2:
+        ver_dados()
+    if esc == 3:
+        teste_funcional()
+    if esc == 4:
+        teste_automatizar()
+    if esc == 5:
         break

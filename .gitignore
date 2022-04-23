@@ -1,0 +1,13 @@
+env
+__pycache__
+Scrapy\front\__pycache__
+Scrapy\aiscore\__pycache__
+Scrapy\back\__pycache__
+Scrapy\scrapy.cfg
+\ANALITIC\Scrapy\airscore.json
+\ANALITIC\Scrapy\back\airscore.json
+scrapy.cfg
+dd.json
+partida.json
+ANALITIC\Scrapy\back\dd.json
+
