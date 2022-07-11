@@ -74,8 +74,7 @@ def chama_dicionarios():
     saida = time.atualiz(atualiza)
     for i in saida[:]:
         for k, v in i.items():
-            print(k, v)
-
+            print(f'{k}: {v}')
 
 def dados_time():
 
@@ -111,13 +110,13 @@ class Cascudo:
         self.arquivo = dict()
     
     def abrir(self):
-        with open('Scrapy/aiscore/airscore.json','rb') as file:
+        with open('././airscore.json','rb') as file:
             self.arquivo = json.load(file)
             return self.arquivo
                 
     def atualiz(self, fora):       
         self.vasco = fora[:]
-        with open('Scrapy/arquivoJ/partida.json', 'rb') as file:
+        with open('../partida.json', 'rb') as file:
             arquivo_at = json.load(file)
             self.vasco.append(arquivo_at)
             return self.vasco
