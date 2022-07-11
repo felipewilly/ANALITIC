@@ -39,8 +39,9 @@ def chamda_scrapi():
     '''
     Função pra chamar uma biblioteca externa devido ao uso do CMD.
     Definir uma forma de atualizar automatico a cada 30 segundos
+    deve rodar dentro do modulo com scrapy.cfg
     '''
-    os.system('scrapy crawl airscore -O airscore.json --nolog')
+    os.system('scrapy crawl aiscore -O airscore.json --nolog')
     
 def verifica(teste):#Desativado para fins de teste
     '''
@@ -59,17 +60,26 @@ def adiciona():
     Função pra somar os dados recebido e formatado.
     '''
     partida = {}
-    partida['povo'] = int(input('Dados do Povo: '))
-    partida['robo'] = int(input('Dados do Robo: '))
-    partida['link'] = input(str('Url:'))
-    partida['campo'] = input(str('Casa[A] ou Visitante[B]: '))
-    with open('partida.json', 'w') as file:
+    with open('../partida.json', 'w') as file:
+        partida['povo'] = int(input('Dados do Povo: '))
+        partida['robo'] = int(input('Dados do Robo: '))
+        partida['link'] = str(input('Url:'))
+        partida['campo'] = str(input('Casa[A] ou Visitante[B]: '))
         json.dump(partida, file)
-    chamda_scrapi()
-    return dados_time(partida['povo'], partida['robo'])
+    return chamda_scrapi()
 
-def dados_time(povo, robo):
-    with open('airscore.json', 'r') as file:
+def chama_dicionarios():
+    time = Cascudo()
+    atualiza = time.abrir()
+    saida = time.atualiz(atualiza)
+    for i in saida[:]:
+        for k, v in i.items():
+            print(k, v)
+
+
+def dados_time():
+
+    with open('airscore.json', 'w+') as file:
         dd = json.load(file)
         soma = (povo + robo + dd[0]['Posse'] + dd[0]['Ataque']) / 4
         dd[0]['Povo'] = povo
@@ -94,7 +104,20 @@ def teste_automatizar():
         teste_funcional()
         sleep(30)
         cont = cont + 1
-        
 
-
+class Cascudo:
+    def __init__(self) -> None:
+        self.vasco = list()
+        self.arquivo = dict()
     
+    def abrir(self):
+        with open('Scrapy/aiscore/airscore.json','rb') as file:
+            self.arquivo = json.load(file)
+            return self.arquivo
+                
+    def atualiz(self, fora):       
+        self.vasco = fora[:]
+        with open('Scrapy/arquivoJ/partida.json', 'rb') as file:
+            arquivo_at = json.load(file)
+            self.vasco.append(arquivo_at)
+            return self.vasco

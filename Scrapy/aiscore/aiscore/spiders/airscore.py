@@ -1,14 +1,15 @@
 
-import scrapy, json
+import scrapy
+import json
 
 
 class AirscoreSpider(scrapy.Spider):
     dd = {}
-    with open('partida.json', 'r+') as file:
+    with open('Scrapy/aiscore/partida.json', 'r+') as file:
         dd = json.load(file)
     global dados
     dados = dd #vai abrir o arquivo pincipal chamado dd e vai buscar o link e o time 
-    name = 'airscore'
+    name = 'aiscore'
     start_urls = [dados['link']]
     
     def parse(self, response):

@@ -11,9 +11,9 @@ while True:
     menu()
     esc = int(input('Opição: '))
     if esc == 1:
-        adiciona()#dados robo e povo4
+        adiciona()
     if esc == 2: #Escolha do usuario que vai receber os dados pra retirada da media
-        pass
+        chama_dicionarios()
     if esc == 3:
         teste_funcional()
     if esc == 4:
