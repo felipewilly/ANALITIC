@@ -10,6 +10,7 @@ titulo('Programa Analitc')
 while True:
     menu()
     esc = int(input('Opição: '))
+    linha()
     if esc == 1:
         adiciona()
     if esc == 2: #Escolha do usuario que vai receber os dados pra retirada da media
@@ -26,7 +27,7 @@ while True:
     if esc == 1:
         adiciona()
     if esc == 2:
-        ver_dados()
+        chama_dicionarios()
     if esc == 3:
         teste_funcional()
     if esc == 4:
