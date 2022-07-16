@@ -1,4 +1,5 @@
 from time import sleep
+from datetime import datetime, timedelta, time
 from front.interface import *
 import os
 import json
@@ -24,16 +25,6 @@ def erros(esc): # desativada para execução
             return 0
         else:
             return nome
-
-def set_scrapy(): #tranferido para adiciona
-    '''
-    Função verifica dados link.. fazer tratamento de erro
-    Chamada lá no modulo aiscore
-    '''
-    partida = {}
-    partida['link'] = input(str('Url:'))
-    partida['campo'] = input(str('Casa[A] ou Visitante[B]: '))
-    return partida
   
 def chamda_scrapi():
     '''
@@ -76,33 +67,35 @@ def chama_dicionarios():
         for k, v in i.items():
             print(f'{k}: {v}')
 
-def dados_time():
-
-    with open('airscore.json', 'w+') as file:
-        dd = json.load(file)
-        soma = (povo + robo + dd[0]['Posse'] + dd[0]['Ataque']) / 4
-        dd[0]['Povo'] = povo
-        dd[0]['Robo'] = robo
-        dd[0]['Media'] = soma
-        with open('dd.json', 'w') as file:
-            json.dump(dd, file)
-        if soma < 51:
-            print(f'Partida {soma} Cuidado')
-        else:
-            print(f'Partida {soma} Atenção') 
-
 def teste_funcional():
     chamda_scrapi()
-    with open('partida.json', 'r+') as file:
-        partida = json.load(file)
-        dados_time(partida['povo'], partida['robo'])
+    soma = soma_media()
+    if soma > 67: 
+        print(f'Media: {soma:.2f}, Entrada.')
+    elif soma <= 56:
+        print(f'Risco: {soma:.2f}, Observa.')
+    else:
+        print(soma)
 
 def teste_automatizar():
-    cont = 0
-    while cont < 4:
-        teste_funcional()
-        sleep(30)
-        cont = cont + 1
+    at = Cascudo()
+    atualiza = at.abrir()
+    saida = at.atualiz(atualiza)
+    barcelona = Altomatizou(saida[0]['HC'])
+    barcelona.bloco_one()
+    print(barcelona.bloco_one())
+    while barcelona.bloco_one() is True:
+        sleep(10)
+        print('Jogo rolando')
+
+
+def soma_media():
+    time = Cascudo()
+    atualiza = time.abrir()
+    saida = time.atualiz(atualiza)
+    soma = (saida[0]['Ataque'] + saida[0]['Posse'] + saida[1]['povo'] + saida[1]['robo']) / 4
+    return soma
+
 
 class Cascudo:
     def __init__(self) -> None:
@@ -120,3 +113,39 @@ class Cascudo:
             arquivo_at = json.load(file)
             self.vasco.append(arquivo_at)
             return self.vasco
+
+class Altomatizou():
+    def __init__(self, hora):
+        self.hora = hora
+        self.hora_now = datetime.now()
+      
+    #getter
+    @property
+    def hora(self):
+        return self._hora
+    #setter
+    @hora.setter
+    def hora(self, valor):
+        hora = valor
+        horac = str(hora).split(' ')
+        horad = horac[-1]      
+        horae = datetime.strptime(horad, "%H:%M:%S")
+        self.horaf = horae + timedelta(hours=13)
+        self._hora = self.horaf.strftime("%H:%M:%S")
+
+    def bloco_one(self):
+        self.hora_now = datetime.now()
+        self.bloco_set = self.horaf + timedelta(minutes=45)
+        self.bloco_sets = self.bloco_set + timedelta(minutes=15)
+        self.bloco_setss = self.bloco_sets + timedelta(minutes=45)
+
+        if self.hora_now.strftime("%H:%M:%S") < self.horaf.strftime("%H:%M:%S"):
+            return False  
+        elif self.horaf.strftime("%H:%M:%S") >= self.hora_now.strftime("%H:%M:%S"):
+            return True
+        elif self.bloco_sets.strftime("%H:%M:%S") >= self.hora_now.strftime("%H:%M:%S"): 
+            return False
+        elif self.hora_now.strftime("%H:%M:%S") >= self.bloco_sets.strftime("%H:%M:%S"):
+             return True
+        elif self.hora_now.strftime("%H:%M:%S") >= self.bloco_setss.strftime("%H:%M:%S"):
+            return False
